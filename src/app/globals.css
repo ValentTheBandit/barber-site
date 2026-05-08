@@ -2,8 +2,6 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -11,7 +9,13 @@ html {
 }
 
 body {
-  background: #0a0a0a;
-  color: white;
+  margin: 0;
+  background: #0b0b0b;
+  color: #f8f3ea;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #c9963e;
+  color: #111;
 }

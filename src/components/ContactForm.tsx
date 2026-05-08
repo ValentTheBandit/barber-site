@@ -2,10 +2,13 @@
 
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
+import { business } from "../data/site";
 
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
+    "idle"
+  );
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,39 +32,101 @@ export function ContactForm() {
   }
 
   return (
-    <section id="contact" className="bg-white px-6 py-24 text-black">
-      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-2">
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-[#0b0b0b] px-5 py-24"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#c9963e22,transparent_35%)]" />
+
+      <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <h2 className="mb-6 text-4xl font-bold md:text-5xl">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-[#c9963e]">
+            Időpontkérés
+          </p>
+
+          <h2 className="mb-6 text-4xl font-black text-white md:text-5xl">
             Kérj időpontot pár kattintással.
           </h2>
 
-          <p className="mb-8 text-neutral-600">
+          <p className="mb-8 leading-7 text-neutral-300">
             Töltsd ki az űrlapot, és visszajelzünk az elérhető időpontokról.
           </p>
 
-          <p><strong>Telefon:</strong> +36 30 123 4567</p>
-          <p><strong>Email:</strong> hello@sharpcut.hu</p>
-          <p><strong>Cím:</strong> Budapest, Barber utca 12.</p>
+          <div className="space-y-4 text-neutral-200">
+            <p>📞 {business.phone}</p>
+            <p>✉️ {business.email}</p>
+            <p>📍 {business.address}</p>
+          </div>
         </div>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="rounded-3xl border p-6">
-          <input name="name" required placeholder="Név" className="mb-4 w-full rounded-xl border px-4 py-3" />
-          <input name="email" required type="email" placeholder="Email" className="mb-4 w-full rounded-xl border px-4 py-3" />
-          <select name="service" className="mb-4 w-full rounded-xl border px-4 py-3">
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}
+          className="rounded-3xl border border-white/10 bg-white p-6 text-black shadow-2xl"
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            <input
+              name="name"
+              required
+              placeholder="Név"
+              className="rounded-xl border border-black/10 px-4 py-3 outline-none focus:border-[#c9963e]"
+            />
+
+            <input
+              name="email"
+              required
+              type="email"
+              placeholder="Email"
+              className="rounded-xl border border-black/10 px-4 py-3 outline-none focus:border-[#c9963e]"
+            />
+          </div>
+
+          <input
+            name="phone"
+            placeholder="Telefonszám"
+            className="mt-4 w-full rounded-xl border border-black/10 px-4 py-3 outline-none focus:border-[#c9963e]"
+          />
+
+          <select
+            name="service"
+            className="mt-4 w-full rounded-xl border border-black/10 px-4 py-3 outline-none focus:border-[#c9963e]"
+          >
             <option>Férfi hajvágás</option>
             <option>Szakáll igazítás</option>
             <option>Haj + szakáll csomag</option>
             <option>Gyerek hajvágás</option>
           </select>
-          <textarea name="message" rows={5} placeholder="Mikor szeretnél jönni?" className="mb-6 w-full rounded-xl border px-4 py-3" />
 
-          <button disabled={status === "loading"} className="w-full rounded-full bg-black px-8 py-3 font-semibold text-white">
+          <textarea
+            name="message"
+            rows={5}
+            placeholder="Mikor szeretnél jönni?"
+            className="mt-4 w-full rounded-xl border border-black/10 px-4 py-3 outline-none focus:border-[#c9963e]"
+          />
+
+          <button
+            disabled={status === "loading"}
+            className="mt-5 w-full rounded-xl bg-[#c9963e] px-8 py-4 font-black text-black transition hover:bg-[#f0c36a] disabled:opacity-60"
+          >
             {status === "loading" ? "Küldés..." : "Időpontkérés küldése"}
           </button>
 
-          {status === "success" && <p className="mt-4 text-green-700">Sikeres küldés!</p>}
-          {status === "error" && <p className="mt-4 text-red-700">Hiba történt. Próbáld újra.</p>}
+          {status === "success" && (
+            <p className="mt-4 rounded-xl bg-green-100 p-4 text-sm text-green-800">
+              Sikeres küldés! Hamarosan visszajelzünk.
+            </p>
+          )}
+
+          {status === "error" && (
+            <p className="mt-4 rounded-xl bg-red-100 p-4 text-sm text-red-800">
+              Hiba történt. Ellenőrizd az EmailJS beállításokat.
+            </p>
+          )}
+
+          <p className="mt-4 text-xs text-neutral-500">
+            Az adataidat bizalmasan kezeljük, és csak az időpont egyeztetésére
+            használjuk.
+          </p>
         </form>
       </div>
     </section>
