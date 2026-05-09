@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://proba2.hu"),
   title: "SharpCut Barber | Prémium férfi hajvágás Budapesten",
   description:
     "Modern barber weboldal szolgáltatásokkal, árlistával, véleményekkel, Google Maps integrációval és időpontkérő űrlappal.",
