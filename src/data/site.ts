@@ -2,7 +2,14 @@ export const business = {
   name: "SharpCut Barber",
   phone: "+36 30 123 4567",
   email: "hello@sharpcut.hu",
-  address: "Budapest, Barber utca 12.",
+  address: "Budapest, Andrássy út 12.",
+  city: "Budapest",
+  openingHours: [
+    "Hétfő - Péntek: 9:00 - 19:00",
+    "Szombat: 10:00 - 16:00",
+    "Vasárnap: Zárva",
+  ],
+  mapQuery: "Budapest Andrássy út 12",
 };
 
 export const services = [

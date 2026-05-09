@@ -1,6 +1,10 @@
 import { business } from "../data/site";
 
 export function Location() {
+  const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(
+    business.mapQuery
+  )}&output=embed`;
+
   return (
     <section className="bg-[#f8f3ea] px-5 py-24 text-black">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2">
@@ -14,22 +18,22 @@ export function Location() {
           </h2>
 
           <p className="mb-8 leading-7 text-neutral-700">
-            A szalon Budapest belvárosában található, tömegközlekedéssel és
-            autóval is könnyen elérhető.
+            Szalonunk Budapest belvárosában található, kényelmesen elérhető
+            tömegközlekedéssel és autóval is.
           </p>
 
           <div className="space-y-3 text-neutral-700">
             <p>📍 {business.address}</p>
-            <p>🕘 Hétfő - Péntek: 9:00 - 19:00</p>
-            <p>🕙 Szombat: 10:00 - 16:00</p>
-            <p>🔒 Vasárnap: Zárva</p>
+            {business.openingHours.map((item) => (
+              <p key={item}>🕘 {item}</p>
+            ))}
           </div>
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-black/10 shadow-xl">
           <iframe
             title="Google Maps"
-            src="https://www.google.com/maps?q=Budapest&output=embed"
+            src={mapUrl}
             className="h-[420px] w-full border-0"
             loading="lazy"
           />
