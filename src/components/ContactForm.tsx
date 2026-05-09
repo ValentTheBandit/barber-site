@@ -1,34 +1,15 @@
 "use client";
 
-import emailjs from "@emailjs/browser";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { business } from "../data/site";
 
 export function ContactForm() {
-  const formRef = useRef<HTMLFormElement>(null);
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<"idle" | "success">("idle");
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("loading");
-
-    if (!formRef.current) return;
-
-    try {
-      await emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formRef.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      );
-
-      setStatus("success");
-      formRef.current.reset();
-    } catch {
-      setStatus("error");
-    }
+    setStatus("success");
+    event.currentTarget.reset();
   }
 
   return (
@@ -60,7 +41,6 @@ export function ContactForm() {
         </div>
 
         <form
-          ref={formRef}
           onSubmit={handleSubmit}
           className="rounded-3xl border border-white/10 bg-white p-6 text-black shadow-2xl"
         >
@@ -104,22 +84,13 @@ export function ContactForm() {
             className="mt-4 w-full rounded-xl border border-black/10 px-4 py-3 outline-none focus:border-[#c9963e]"
           />
 
-          <button
-            disabled={status === "loading"}
-            className="mt-5 w-full rounded-xl bg-[#c9963e] px-8 py-4 font-black text-black transition hover:bg-[#f0c36a] disabled:opacity-60"
-          >
-            {status === "loading" ? "Küldés..." : "Időpontkérés küldése"}
+          <button className="mt-5 w-full rounded-xl bg-[#c9963e] px-8 py-4 font-black text-black transition hover:bg-[#f0c36a]">
+            Időpontkérés küldése
           </button>
 
           {status === "success" && (
             <p className="mt-4 rounded-xl bg-green-100 p-4 text-sm text-green-800">
-              Sikeres küldés! Hamarosan visszajelzünk.
-            </p>
-          )}
-
-          {status === "error" && (
-            <p className="mt-4 rounded-xl bg-red-100 p-4 text-sm text-red-800">
-              Hiba történt. Ellenőrizd az EmailJS beállításokat.
+              Demo sikeres! Éles oldalon ez EmailJS / saját backend felé küldene.
             </p>
           )}
 

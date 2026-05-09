@@ -4,14 +4,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "SharpCut Barber | Prémium férfi hajvágás Budapesten",
   description:
-    "Modern barber shop Budapesten férfi hajvágással, szakáll igazítással, árlistával és online időpontkéréssel.",
+    "Modern barber weboldal szolgáltatásokkal, árlistával, véleményekkel, Google Maps integrációval és időpontkérő űrlappal.",
   keywords: [
     "barber",
     "fodrász",
     "férfi hajvágás",
     "szakáll igazítás",
     "barber Budapest",
-    "online időpontfoglalás",
+    "időpontfoglalás",
   ],
   openGraph: {
     title: "SharpCut Barber",
@@ -20,6 +20,14 @@ export const metadata: Metadata = {
     siteName: "SharpCut Barber",
     locale: "hu_HU",
     type: "website",
+    images: [
+      {
+        url: "/images/barber-hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SharpCut Barber",
+      },
+    ],
   },
 };
 
